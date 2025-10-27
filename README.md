@@ -1,4 +1,4 @@
-#  20th Century – Text Mining and Network Analysis
+#  20th Century – Network Visualisations and Natural Language Processing with Python
 
 This project explores key relationships between countries mentioned in 20th-century historical texts using **web scraping**, **Natural Language Processing (NLP)**, and **Network Analysis** techniques.
 
