@@ -1,0 +1,7 @@
+name,age,age_plus_10,is_hobbit
+Aragorn,120,130,False
+Boromir,453,463,False
+Frodo,878,888,True
+Galadriel,288,298,False
+Legolas,124,134,False
+Gimli,89,99,False
