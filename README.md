@@ -51,10 +51,7 @@ The analysis follows CareerFoundry’s Data Analytics program (Tasks 1.4 – 1.7
 | `outputs/network_leiden.html` | Network visualisation colored by Leiden communities. |
 | `outputs/visualisations/` | Static PNG plots showing top countries, adjectives, and more. |
 
-You can open the interactive graph directly in your browser from  
-➡️ [`outputs/network_interactive.html`](outputs/network_interactive.html)
 
----
 
 
 
