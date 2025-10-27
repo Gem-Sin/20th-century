@@ -1,27 +1,60 @@
-# 20th Century – Text Mining and Network Analysis
+#  20th Century – Text Mining and Network Analysis
 
-This project explores key relationships between countries mentioned in 20th-century historical texts using web scraping, Natural Language Processing (NLP) and Network Analysis techniques.
+This project explores key relationships between countries mentioned in 20th-century historical texts using **web scraping**, **Natural Language Processing (NLP)**, and **Network Analysis** techniques.
+
+The analysis follows CareerFoundry’s Data Analytics program (Tasks 1.4 – 1.7), covering data extraction, cleaning, NLP feature generation, and interactive graph visualisation.
+
+---
 
 ## Structure
 
 | Folder | Description |
-|---------|--------------|
-| notebooks/ | Jupyter notebooks for each CareerFoundry task (1.4–1.7) |
-| data/ | Clean text and relationship CSVs used for NLP & network analysis |
-| visuals/ | Plots, network visualisations, and HTML interactive graphs |
+|:--|:--|
+| `notebooks/` | Jupyter notebooks for each CareerFoundry task (1.4–1.7). |
+| `data/` | Clean text and relationship CSVs used for NLP and network analysis. |
+| `outputs/` | HTML network graphs and exported results. |
+| `outputs/visualisations/` | PNG plots and visualisation outputs from analysis. |
 
-## Tools
-- **Python libraries:** pandas, nltk, spacy, networkx, cdlib, pyvis, matplotlib, seaborn  
-- **Visualisation:** PyVis (interactive HTML), Seaborn, Matplotlib
+---
+
+## Tools and Libraries
+
+**Python:**
+- `pandas`, `nltk`, `spacy`, `networkx`, `cdlib`, `pyvis`, `matplotlib`, `seaborn`
+
+**Visualisation:**
+- `PyVis` (interactive HTML graphs)  
+- `Seaborn` and `Matplotlib` for static plots  
+
+**Community Detection:**
+- `Leiden` algorithm via `cdlib` to identify clusters of countries
+
+---
 
 ## Highlights
-- Extracted named entities and country mentions from 20th-century texts.
-- Built a network graph to show inter-country relationships.
-- Detected 11 communities using the **Leiden algorithm**.
-- Calculated **degree**, **closeness**, and **betweenness** centralities:
-  - Germany and France showed the highest degree centrality.
-  - China and Japan acted as key bridges (high betweenness).
-  - Nordic and Eastern European clusters formed distinct communities.
+
+- Extracted named entities and country mentions from a 20th-century text corpus.
+- Built a **network graph** showing relationships between countries.
+- Detected **11 communities** using the Leiden algorithm.
+- Calculated **degree**, **closeness**, and **betweenness** centralities to find influential countries:
+  - **Germany** and **France** show the highest degree centrality.
+  - **China** and **Japan** act as key bridges (high betweenness).
+  - Nordic and Eastern European countries form distinct clusters.
+
+---
 
 ## Outputs
-See `visuals/network_interactive.html` for the interactive network graph.
+
+| File | Description |
+|:--|:--|
+| `outputs/network_interactive.html` | Interactive country network graph (PyVis). |
+| `outputs/network_leiden.html` | Network visualisation colored by Leiden communities. |
+| `outputs/visualisations/` | Static PNG plots showing top countries, adjectives, and more. |
+
+You can open the interactive graph directly in your browser from  
+➡️ [`outputs/network_interactive.html`](outputs/network_interactive.html)
+
+---
+
+
+
