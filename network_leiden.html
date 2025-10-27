@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 900px;
+                 height: 800px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#b3591a", "font": {"color": "white"}, "id": "france", "label": "france", "shape": "dot", "size": 35}, {"color": "#6074f9", "font": {"color": "white"}, "id": "germany", "label": "germany", "shape": "dot", "size": 35}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "poland", "label": "poland", "shape": "dot", "size": 26}, {"color": "#b3591a", "font": {"color": "white"}, "id": "india", "label": "india", "shape": "dot", "size": 26}, {"color": "#b3591a", "font": {"color": "white"}, "id": "pakistan", "label": "pakistan", "shape": "dot", "size": 23}, {"color": "#b3591a", "font": {"color": "white"}, "id": "china", "label": "china", "shape": "dot", "size": 35}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "japan", "label": "japan", "shape": "dot", "size": 38}, {"color": "#6074f9", "font": {"color": "white"}, "id": "italy", "label": "italy", "shape": "dot", "size": 14}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "solomon islands", "label": "solomon islands", "shape": "dot", "size": 11}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "estonia", "label": "estonia", "shape": "dot", "size": 20}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "lithuania", "label": "lithuania", "shape": "dot", "size": 20}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "latvia", "label": "latvia", "shape": "dot", "size": 20}, {"color": "#6074f9", "font": {"color": "white"}, "id": "denmark", "label": "denmark", "shape": "dot", "size": 11}, {"color": "#6074f9", "font": {"color": "white"}, "id": "norway", "label": "norway", "shape": "dot", "size": 14}, {"color": "#b3591a", "font": {"color": "white"}, "id": "russia", "label": "russia", "shape": "dot", "size": 35}, {"color": "#f9c6a2", "font": {"color": "white"}, "id": "angola", "label": "angola", "shape": "dot", "size": 17}, {"color": "#f9c6a2", "font": {"color": "white"}, "id": "mozambique", "label": "mozambique", "shape": "dot", "size": 17}, {"color": "#f6e101", "font": {"color": "white"}, "id": "cambodia", "label": "cambodia", "shape": "dot", "size": 14}, {"color": "#f6e101", "font": {"color": "white"}, "id": "laos", "label": "laos", "shape": "dot", "size": 14}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "albania", "label": "albania", "shape": "dot", "size": 23}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "hungary", "label": "hungary", "shape": "dot", "size": 26}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "romania", "label": "romania", "shape": "dot", "size": 35}, {"color": "#4af67a", "font": {"color": "white"}, "id": "algeria", "label": "algeria", "shape": "dot", "size": 11}, {"color": "#4af67a", "font": {"color": "white"}, "id": "morocco", "label": "morocco", "shape": "dot", "size": 11}, {"color": "#f9c6a2", "font": {"color": "white"}, "id": "cape verde", "label": "cape verde", "shape": "dot", "size": 17}, {"color": "#f9c6a2", "font": {"color": "white"}, "id": "guinea", "label": "guinea", "shape": "dot", "size": 17}, {"color": "#8bbd86", "font": {"color": "white"}, "id": "belarus", "label": "belarus", "shape": "dot", "size": 11}, {"color": "#8bbd86", "font": {"color": "white"}, "id": "ukraine", "label": "ukraine", "shape": "dot", "size": 11}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "australia", "label": "australia", "shape": "dot", "size": 14}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "canada", "label": "canada", "shape": "dot", "size": 17}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "finland", "label": "finland", "shape": "dot", "size": 23}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "philippines", "label": "philippines", "shape": "dot", "size": 20}, {"color": "#6074f9", "font": {"color": "white"}, "id": "austria", "label": "austria", "shape": "dot", "size": 17}, {"color": "#74a4e9", "font": {"color": "white"}, "id": "belgium", "label": "belgium", "shape": "dot", "size": 14}, {"color": "#74a4e9", "font": {"color": "white"}, "id": "luxembourg", "label": "luxembourg", "shape": "dot", "size": 14}, {"color": "#f6e101", "font": {"color": "white"}, "id": "vietnam", "label": "vietnam", "shape": "dot", "size": 23}, {"color": "#cd4f49", "font": {"color": "white"}, "id": "egypt", "label": "egypt", "shape": "dot", "size": 11}, {"color": "#cd4f49", "font": {"color": "white"}, "id": "libya", "label": "libya", "shape": "dot", "size": 14}, {"color": "#f6e101", "font": {"color": "white"}, "id": "cuba", "label": "cuba", "shape": "dot", "size": 17}, {"color": "#b3591a", "font": {"color": "white"}, "id": "israel", "label": "israel", "shape": "dot", "size": 26}, {"color": "#f6e101", "font": {"color": "white"}, "id": "mongolia", "label": "mongolia", "shape": "dot", "size": 17}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "greece", "label": "greece", "shape": "dot", "size": 11}, {"color": "#64a7fb", "font": {"color": "white"}, "id": "bulgaria", "label": "bulgaria", "shape": "dot", "size": 20}, {"color": "#74a4e9", "font": {"color": "white"}, "id": "netherlands", "label": "netherlands", "shape": "dot", "size": 14}, {"color": "#cd4f49", "font": {"color": "white"}, "id": "iran", "label": "iran", "shape": "dot", "size": 14}, {"color": "#b3dd1f", "font": {"color": "white"}, "id": "ghana", "label": "ghana", "shape": "dot", "size": 11}, {"color": "#b3dd1f", "font": {"color": "white"}, "id": "kenya", "label": "kenya", "shape": "dot", "size": 11}, {"color": "#6074f9", "font": {"color": "white"}, "id": "sweden", "label": "sweden", "shape": "dot", "size": 11}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "thailand", "label": "thailand", "shape": "dot", "size": 17}, {"color": "#e8c7fb", "font": {"color": "white"}, "id": "singapore", "label": "singapore", "shape": "dot", "size": 17}, {"color": "#cd4f49", "font": {"color": "white"}, "id": "iraq", "label": "iraq", "shape": "dot", "size": 11}, {"color": "#b3591a", "font": {"color": "white"}, "id": "south africa", "label": "south africa", "shape": "dot", "size": 11}]);
+                  edges = new vis.DataSet([{"from": "france", "title": "weight: 4", "to": "germany", "value": 4}, {"from": "france", "title": "weight: 2", "to": "poland", "value": 2}, {"from": "france", "title": "weight: 1", "to": "china", "value": 1}, {"from": "france", "title": "weight: 1", "to": "russia", "value": 1}, {"from": "france", "title": "weight: 1", "to": "israel", "value": 1}, {"from": "france", "title": "weight: 1", "to": "pakistan", "value": 1}, {"from": "france", "title": "weight: 1", "to": "austria", "value": 1}, {"from": "france", "title": "weight: 1", "to": "hungary", "value": 1}, {"from": "france", "title": "weight: 1", "to": "india", "value": 1}, {"from": "germany", "title": "weight: 4", "to": "poland", "value": 4}, {"from": "germany", "title": "weight: 3", "to": "italy", "value": 3}, {"from": "germany", "title": "weight: 2", "to": "japan", "value": 2}, {"from": "germany", "title": "weight: 1", "to": "austria", "value": 1}, {"from": "germany", "title": "weight: 1", "to": "finland", "value": 1}, {"from": "germany", "title": "weight: 1", "to": "sweden", "value": 1}, {"from": "germany", "title": "weight: 1", "to": "russia", "value": 1}, {"from": "germany", "title": "weight: 1", "to": "norway", "value": 1}, {"from": "poland", "title": "weight: 1", "to": "albania", "value": 1}, {"from": "poland", "title": "weight: 1", "to": "bulgaria", "value": 1}, {"from": "poland", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "poland", "title": "weight: 1", "to": "hungary", "value": 1}, {"from": "india", "title": "weight: 3", "to": "pakistan", "value": 3}, {"from": "india", "title": "weight: 2", "to": "china", "value": 2}, {"from": "india", "title": "weight: 1", "to": "japan", "value": 1}, {"from": "india", "title": "weight: 1", "to": "israel", "value": 1}, {"from": "india", "title": "weight: 1", "to": "russia", "value": 1}, {"from": "pakistan", "title": "weight: 1", "to": "china", "value": 1}, {"from": "pakistan", "title": "weight: 1", "to": "russia", "value": 1}, {"from": "pakistan", "title": "weight: 1", "to": "israel", "value": 1}, {"from": "china", "title": "weight: 3", "to": "japan", "value": 3}, {"from": "china", "title": "weight: 1", "to": "russia", "value": 1}, {"from": "china", "title": "weight: 1", "to": "cuba", "value": 1}, {"from": "china", "title": "weight: 1", "to": "israel", "value": 1}, {"from": "china", "title": "weight: 1", "to": "mongolia", "value": 1}, {"from": "china", "title": "weight: 1", "to": "vietnam", "value": 1}, {"from": "japan", "title": "weight: 2", "to": "solomon islands", "value": 2}, {"from": "japan", "title": "weight: 2", "to": "russia", "value": 2}, {"from": "japan", "title": "weight: 2", "to": "italy", "value": 2}, {"from": "japan", "title": "weight: 1", "to": "canada", "value": 1}, {"from": "japan", "title": "weight: 1", "to": "philippines", "value": 1}, {"from": "japan", "title": "weight: 1", "to": "singapore", "value": 1}, {"from": "japan", "title": "weight: 1", "to": "thailand", "value": 1}, {"from": "estonia", "title": "weight: 2", "to": "lithuania", "value": 2}, {"from": "estonia", "title": "weight: 2", "to": "latvia", "value": 2}, {"from": "estonia", "title": "weight: 1", "to": "finland", "value": 1}, {"from": "estonia", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "lithuania", "title": "weight: 2", "to": "latvia", "value": 2}, {"from": "lithuania", "title": "weight: 1", "to": "finland", "value": 1}, {"from": "lithuania", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "latvia", "title": "weight: 1", "to": "finland", "value": 1}, {"from": "latvia", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "denmark", "title": "weight: 2", "to": "norway", "value": 2}, {"from": "russia", "title": "weight: 1", "to": "canada", "value": 1}, {"from": "russia", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "russia", "title": "weight: 1", "to": "israel", "value": 1}, {"from": "angola", "title": "weight: 1", "to": "mozambique", "value": 1}, {"from": "angola", "title": "weight: 1", "to": "cape verde", "value": 1}, {"from": "angola", "title": "weight: 1", "to": "guinea", "value": 1}, {"from": "mozambique", "title": "weight: 1", "to": "cape verde", "value": 1}, {"from": "mozambique", "title": "weight: 1", "to": "guinea", "value": 1}, {"from": "cambodia", "title": "weight: 1", "to": "laos", "value": 1}, {"from": "cambodia", "title": "weight: 1", "to": "vietnam", "value": 1}, {"from": "laos", "title": "weight: 1", "to": "vietnam", "value": 1}, {"from": "albania", "title": "weight: 1", "to": "hungary", "value": 1}, {"from": "albania", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "albania", "title": "weight: 1", "to": "greece", "value": 1}, {"from": "albania", "title": "weight: 1", "to": "bulgaria", "value": 1}, {"from": "hungary", "title": "weight: 1", "to": "austria", "value": 1}, {"from": "hungary", "title": "weight: 1", "to": "bulgaria", "value": 1}, {"from": "hungary", "title": "weight: 1", "to": "romania", "value": 1}, {"from": "romania", "title": "weight: 1", "to": "finland", "value": 1}, {"from": "romania", "title": "weight: 1", "to": "bulgaria", "value": 1}, {"from": "algeria", "title": "weight: 1", "to": "morocco", "value": 1}, {"from": "cape verde", "title": "weight: 1", "to": "guinea", "value": 1}, {"from": "belarus", "title": "weight: 1", "to": "ukraine", "value": 1}, {"from": "australia", "title": "weight: 1", "to": "canada", "value": 1}, {"from": "australia", "title": "weight: 1", "to": "philippines", "value": 1}, {"from": "philippines", "title": "weight: 1", "to": "thailand", "value": 1}, {"from": "philippines", "title": "weight: 1", "to": "singapore", "value": 1}, {"from": "belgium", "title": "weight: 1", "to": "luxembourg", "value": 1}, {"from": "belgium", "title": "weight: 1", "to": "netherlands", "value": 1}, {"from": "luxembourg", "title": "weight: 1", "to": "netherlands", "value": 1}, {"from": "vietnam", "title": "weight: 1", "to": "cuba", "value": 1}, {"from": "vietnam", "title": "weight: 1", "to": "mongolia", "value": 1}, {"from": "egypt", "title": "weight: 1", "to": "libya", "value": 1}, {"from": "libya", "title": "weight: 1", "to": "iran", "value": 1}, {"from": "cuba", "title": "weight: 1", "to": "mongolia", "value": 1}, {"from": "israel", "title": "weight: 1", "to": "south africa", "value": 1}, {"from": "iran", "title": "weight: 1", "to": "iraq", "value": 1}, {"from": "ghana", "title": "weight: 1", "to": "kenya", "value": 1}, {"from": "thailand", "title": "weight: 1", "to": "singapore", "value": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 100,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
