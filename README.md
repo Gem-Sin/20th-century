@@ -55,8 +55,9 @@ The analysis follows CareerFoundry’s Data Analytics program (Tasks 1.4 – 1.7
 
 See the interactive graphs here:
 
-- [Interactive network](outputs/visualisations/network_interactive.html)
-- [Leiden communities network](outputs/visualisations/network_leiden.html)
+- [Interactive network](outputs/network_interactive.html)
+- [Leiden communities network](outputs/network_leiden.html)
+
 
 
 
