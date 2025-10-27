@@ -1,4 +1,18 @@
-# macOS
+# Ignore intermediate and temporary files
+top10_words_clean.*
+top15_.*
+top_pos_tags.*
+pos_dataframe.*
+networkx_plt_20th_century.*
+
+# Ignore any future generated files in outputs/
+outputs/*.png
+outputs/*.csv
+outputs/*.zip
+
+# Ignore system and cache files
+.ipynb_checkpoints/
+__pycache__/
 .DS_Store
 
 # Jupyter notebooks
